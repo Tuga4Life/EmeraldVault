@@ -1,24 +1,23 @@
 package net.tuga4life.emerald_vault.events;
 
-import net.tuga4life.emeraldvault.EmeraldVaultMod; // Importar a classe principal para o MODID
-import net.tuga4life.emerald_vault.network.ClientData; // Importar a classe que guarda a contagem
+import net.tuga4life.emerald_vault.EmeraldVault;
+
+import net.tuga4life.emerald_vault.network.ClientData;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiLayersEvent; // <--- Import Corrigido
+import net.minecraftforge.client.event.RegisterGuiLayersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = EmeraldVaultMod.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = EmeraldVault.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientModEvents {
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        // Usa o método de referência (ClientModEvents::renderEmeraldCount) que é mais limpo
-        // O Forge associa automaticamente a GuiGraphics e o partialTick
         event.register(
                 new ResourceLocation(EmeraldVaultMod.MODID, "emerald_count_hud"),
                 ClientModEvents::renderEmeraldCount
