@@ -25,7 +25,6 @@ public class ClientModEvents {
         );
     }
 
-    // A função de renderização TEM DE aceitar GuiGraphics e float (partialTick)
     private static void renderEmeraldCount(GuiGraphics guiGraphics, float partialTick) {
         long count = ClientData.getEmeraldCount();
 
