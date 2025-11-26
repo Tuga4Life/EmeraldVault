@@ -1,47 +1,33 @@
-package net.tuga4life.emerald_vault.item;
+package com.tuga4life.emeraldvault;
 
-import net.tuga4life.emerald_vault.EmeraldVault;
-import net.minecraft.world.item.Item;
+import com.tuga4life.emeraldvault.capability.IEmeraldStorage;
+import com.tuga4life.emeraldvault.item.ModItems;
+import com.tuga4life.emeraldvault.network.NetworkHandler;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+@Mod(EmeraldVaultMod.MODID)
+public class EmeraldVaultMod {
+    public static final String MODID = "emeraldvault";
 
-import java.math.BigInteger;
+    public EmeraldVaultMod() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-public class ModItem extends Item {
+        // 1. Registo de Itens
+        ModItems.register(modEventBus);
 
-    public ModItem(Properties props) {
-        super(props);
+        // 2. Registo de Capabilities
+        modEventBus.addListener(this::onRegisterCapabilities);
+
+        // 3. Registo de Pacotes de Rede
+        NetworkHandler.register();
     }
 
-    private BigInteger getCount(ItemStack stack) {
-        CompoundTag tag = stack.getOrCreateTag();
-        String raw = tag.getString("emeraldCount");
-
-        if (raw == null || raw.isEmpty())
-            raw = "0";
-
-        return new BigInteger(raw);
-    }
-
-    private void setCount(ItemStack stack, BigInteger value) {
-        CompoundTag tag = stack.getOrCreateTag();
-        tag.putString("emeraldCount", value.toString());
-    }
-
-    public void addEmeralds(ItemStack stack, int amount) {
-        BigInteger current = getCount(stack);
-        BigInteger updated = current.add(BigInteger.valueOf(amount));
-
-        setCount(stack, updated);
-    }
-
-    public BigInteger getEmeralds(ItemStack stack) {
-        return getCount(stack);
+    private void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+        // Regista a interface de armazenamento para que o Forge saiba como serializá-la
+        event.register(IEmeraldStorage.class);
     }
 }
 
