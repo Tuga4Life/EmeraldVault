@@ -1,6 +1,6 @@
 package net.tuga4life.emerald_vault.events;
 
-import net.tuga4life.emeraldvault.EmeraldVaultMod;
+import net.tuga4life.emerald_vault.EmeraldVault;
 import net.tuga4life.emerald_vault.capability.EmeraldStorage;
 import net.tuga4life.emerald_vault.capability.IEmeraldStorage;
 import net.tuga4life.emerald_vault.item.ModItems;
@@ -20,7 +20,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.ItemPickupEvent;
 import net.minecraftforge.eventbus.api.Event.Result;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.common.util.ICapabilitySerializable;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraft.nbt.CompoundTag;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

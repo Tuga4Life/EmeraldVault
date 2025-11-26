@@ -1,6 +1,6 @@
 package net.tuga4life.emerald_vault.item;
 
-import com.tuga4life.emeraldvault.EmeraldVaultMod;
+import net.tuga4life.emerald_vault.EmeraldVault;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
