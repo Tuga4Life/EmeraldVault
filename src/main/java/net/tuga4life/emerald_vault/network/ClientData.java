@@ -1,6 +1,5 @@
 package net.tuga4life.emerald_vault.network;
 
-// Classe simples para guardar a contagem sincronizada no lado do cliente
 public class ClientData {
     private static long emeraldCount = 0;
 

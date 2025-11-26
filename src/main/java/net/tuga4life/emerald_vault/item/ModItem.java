@@ -1,8 +1,8 @@
-package com.tuga4life.emeraldvault;
+package net.tuga4life.emeraldvault;
 
-import com.tuga4life.emeraldvault.capability.IEmeraldStorage;
-import com.tuga4life.emeraldvault.item.ModItems;
-import com.tuga4life.emeraldvault.network.NetworkHandler;
+import net.tuga4life.emerald_vault.capability.IEmeraldStorage;
+import net.tuga4life.emerald_vault.item.ModItems;
+import net.tuga4life.emerald_vault.network.NetworkHandler;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;

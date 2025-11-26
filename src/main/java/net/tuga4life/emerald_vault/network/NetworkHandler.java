@@ -1,6 +1,6 @@
 package net.tuga4life.emerald_vault.network;
 
-import com.tuga4life.emeraldvault.EmeraldVaultMod;
+import net.tuga4life.emeraldvault.EmeraldVaultMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;

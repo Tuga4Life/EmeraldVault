@@ -1,7 +1,7 @@
-package com.tuga4life.emeraldvault.events;
+package net.tuga4life.emerald_vault.events;
 
-import com.tuga4life.emeraldvault.EmeraldVaultMod; // Importar a classe principal para o MODID
-import com.tuga4life.emeraldvault.network.ClientData; // Importar a classe que guarda a contagem
+import net.tuga4life.emeraldvault.EmeraldVaultMod; // Importar a classe principal para o MODID
+import net.tuga4life.emerald_vault.network.ClientData; // Importar a classe que guarda a contagem
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

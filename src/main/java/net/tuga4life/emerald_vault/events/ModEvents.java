@@ -1,11 +1,11 @@
 package net.tuga4life.emerald_vault.events;
 
-import com.tuga4life.emeraldvault.EmeraldVaultMod;
-import com.tuga4life.emeraldvault.capability.EmeraldStorage;
-import com.tuga4life.emeraldvault.capability.IEmeraldStorage;
-import com.tuga4life.emeraldvault.item.ModItems;
-import com.tuga4life.emeraldvault.network.NetworkHandler;
-import com.tuga4life.emeraldvault.network.SyncEmeraldCountPacket;
+import net.tuga4life.emeraldvault.EmeraldVaultMod;
+import net.tuga4life.emerald_vault.capability.EmeraldStorage;
+import net.tuga4life.emerald_vault.capability.IEmeraldStorage;
+import net.tuga4life.emerald_vault.item.ModItems;
+import net.tuga4life.emerald_vault.network.NetworkHandler;
+import net.tuga4life.emerald_vault.network.SyncEmeraldCountPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
