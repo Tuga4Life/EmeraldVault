@@ -1,7 +1,6 @@
 package net.tuga4life.emerald_vault.events;
 
 import net.tuga4life.emerald_vault.EmeraldVault;
-
 import net.tuga4life.emerald_vault.network.ClientData;
 
 import net.minecraft.client.Minecraft;
@@ -19,7 +18,8 @@ public class ClientModEvents {
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
         event.register(
-                new ResourceLocation(EmeraldVaultMod.MODID, "emerald_count_hud"),
+                // CORREÇÃO AQUI: Usar a classe EmeraldVault e o campo MOD_ID
+                new ResourceLocation(EmeraldVault.MOD_ID, "emerald_count_hud"),
                 ClientModEvents::renderEmeraldCount
         );
     }

@@ -1,62 +1,36 @@
-package net.tuga4life.emerald_vault;
+// Conteúdo de src/main/java/net/tuga4life/emerald_vault/EmeraldVault.java
 
-import com.mojang.logging.LogUtils;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.server.ServerStartingEvent;
+package net.tuga4life.emerald_vault; // <--- PACOTE RAIZ
+
+import net.tuga4life.emerald_vault.capability.IEmeraldStorage; // Já corrigido
+import net.tuga4life.emerald_vault.item.ModItems;
+import net.tuga4life.emerald_vault.network.NetworkHandler;
+
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(EmeraldVault.MOD_ID)
-public class EmeraldVault
-{
-    // Define mod id in a common place for everything to reference
+// 1. O nome da classe deve ser "EmeraldVault" (como o ficheiro)
+@Mod(EmeraldVault.MOD_ID) // 2. O seu MOD_ID é MOD_ID, não MODID
+public class EmeraldVault {
+    // 3. O seu Mod ID é MOD_ID (usado no seu mods.toml)
     public static final String MOD_ID = "emerald_vault";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
 
-    public EmeraldVault(FMLJavaModLoadingContext context)
-    {
-        IEventBus modEventBus = context.getModEventBus();
+    public EmeraldVault() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(this::commonSetup);
+        // 1. Registo de Itens (ModItems.java deve conter o DeferredRegister)
+        ModItems.register(modEventBus);
 
-        MinecraftForge.EVENT_BUS.register(this);
+        // 2. Registo de Capabilities
+        modEventBus.addListener(this::onRegisterCapabilities);
 
-        // Register the item to a creative tab
-        modEventBus.addListener(this::addCreative);
+        // 3. Registo de Pacotes de Rede
+        NetworkHandler.register();
     }
 
-    private void commonSetup(final FMLCommonSetupEvent event) {
-
-    }
-
-    // Add the example block item to the building blocks tab
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
-    }
-
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event)
-        {
-
-        }
+    private void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
+        event.register(IEmeraldStorage.class);
     }
 }
