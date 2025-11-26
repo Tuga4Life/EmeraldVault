@@ -1,12 +1,14 @@
-package net.tuga4life.emerald_vault.events;
+package com.tuga4life.emeraldvault.events;
 
-import com.tuga4life.emeraldvault.EmeraldVaultMod;
-import com.tuga4life.emeraldvault.network.ClientData;
+import com.tuga4life.emeraldvault.EmeraldVaultMod; // Importar a classe principal para o MODID
+import com.tuga4life.emeraldvault.network.ClientData; // Importar a classe que guarda a contagem
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
+
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiLayersEvent;
+import net.minecraftforge.client.event.RegisterGuiLayersEvent; // <--- Import Corrigido
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -15,14 +17,16 @@ public class ClientModEvents {
 
     @SubscribeEvent
     public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        // Regista um novo layer de HUD
+        // Usa o método de referência (ClientModEvents::renderEmeraldCount) que é mais limpo
+        // O Forge associa automaticamente a GuiGraphics e o partialTick
         event.register(
                 new ResourceLocation(EmeraldVaultMod.MODID, "emerald_count_hud"),
-                (guiGraphics, partialTick) -> renderEmeraldCount(guiGraphics)
+                ClientModEvents::renderEmeraldCount
         );
     }
 
-    private static void renderEmeraldCount(GuiGraphics guiGraphics) {
+    // A função de renderização TEM DE aceitar GuiGraphics e float (partialTick)
+    private static void renderEmeraldCount(GuiGraphics guiGraphics, float partialTick) {
         long count = ClientData.getEmeraldCount();
 
         // Só desenha se houver esmeraldas no cofre
@@ -37,13 +41,13 @@ public class ClientModEvents {
             int x = screenWidth - textWidth - 10;
             int y = 10;
 
-            // Desenhar o texto na tela (cor verde)
+            // Desenhar o texto na tela (cor verde 0xFF00AA00)
             guiGraphics.drawString(
                     mc.font,
                     text,
                     x,
                     y,
-                    0xFF00AA00, // Cor verde
+                    0xFF00AA00,
                     true // Com sombra
             );
         }
