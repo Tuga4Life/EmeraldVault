@@ -9,7 +9,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, EmeraldVaultMod.MODID);
+            DeferredRegister.create(ForgeRegistries.ITEMS, EmeraldVault.MOD_ID);
 
     public static final RegistryObject<Item> EMERALD_VAULT = ITEMS.register("emerald_vault",
             () -> new EmeraldVaultItem(new Item.Properties().stacksTo(1)));

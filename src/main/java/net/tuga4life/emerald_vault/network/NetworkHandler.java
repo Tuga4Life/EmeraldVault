@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public class NetworkHandler {
@@ -17,23 +18,22 @@ public class NetworkHandler {
 
     public static void register() {
         INSTANCE = NetworkRegistry.ChannelBuilder
-                .named(new ResourceLocation(EmeraldVaultMod.MODID, "network_channel"))
+                .named(new ResourceLocation(EmeraldVault.MOD_ID, "network_channel"))
                 .networkProtocolVersion(() -> "1.0")
                 .clientAcceptedVersions(s -> true)
                 .serverAcceptedVersions(s -> true)
                 .simpleChannel();
 
-        // Registo do pacote (Servidor -> Cliente)
         INSTANCE.registerMessage(nextId(),
                 SyncEmeraldCountPacket.class,
                 SyncEmeraldCountPacket::toBytes,
                 SyncEmeraldCountPacket::fromBytes,
                 SyncEmeraldCountPacket::handle,
-                NetworkDirection.PLAY_TO_CLIENT
+                java.util.Optional.of(NetworkDirection.PLAY_TO_CLIENT) // <--- CORREÇÃO AQUI
         );
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
-        INSTANCE.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), message);
     }
 }

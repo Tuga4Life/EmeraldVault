@@ -5,10 +5,9 @@ import net.tuga4life.emerald_vault.network.ClientData;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.resources.ResourceLocation;
-
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RegisterGuiLayersEvent;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent; // <--- ALTERADO PARA O ANTIGO
+import net.minecraftforge.client.gui.overlay.ForgeGui; // <--- NOVO IMPORT NECESSÁRIO
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -16,15 +15,16 @@ import net.minecraftforge.fml.common.Mod;
 public class ClientModEvents {
 
     @SubscribeEvent
-    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-        event.register(
-                // CORREÇÃO AQUI: Usar a classe EmeraldVault e o campo MOD_ID
-                new ResourceLocation(EmeraldVault.MOD_ID, "emerald_count_hud"),
+    public static void registerGuiOverlays(RegisterGuiOverlaysEvent event) {
+        // Usamos registerAboveAll para garantir que aparece por cima de tudo
+        event.registerAboveAll(
+                "emerald_count_hud",
                 ClientModEvents::renderEmeraldCount
         );
     }
 
-    private static void renderEmeraldCount(GuiGraphics guiGraphics, float partialTick) {
+    // A assinatura deste método mudou para corresponder ao sistema antigo (recebe mais argumentos)
+    private static void renderEmeraldCount(ForgeGui gui, GuiGraphics guiGraphics, float partialTick, int screenWidth, int screenHeight) {
         long count = ClientData.getEmeraldCount();
 
         // Só desenha se houver esmeraldas no cofre
@@ -32,14 +32,13 @@ public class ClientModEvents {
             String text = "Esmeraldas no Cofre: " + count;
 
             Minecraft mc = Minecraft.getInstance();
-            int screenWidth = guiGraphics.guiWidth();
             int textWidth = mc.font.width(text);
 
             // Posicionamento: Canto superior direito
             int x = screenWidth - textWidth - 10;
             int y = 10;
 
-            // Desenhar o texto na tela (cor verde 0xFF00AA00)
+            // Desenhar o texto na tela (cor verde)
             guiGraphics.drawString(
                     mc.font,
                     text,

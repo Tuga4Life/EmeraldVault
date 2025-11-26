@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 // 1. O nome da classe deve ser "EmeraldVault" (como o ficheiro)
-@Mod(EmeraldVault.MOD_ID) // 2. O seu MOD_ID é MOD_ID, não MODID
+@Mod(EmeraldVault.MOD_ID) // 2. O seu MOD_ID é MOD_ID, não MOD_ID
 public class EmeraldVault {
     // 3. O seu Mod ID é MOD_ID (usado no seu mods.toml)
     public static final String MOD_ID = "emerald_vault";
